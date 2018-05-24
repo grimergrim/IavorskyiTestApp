@@ -7,15 +7,9 @@ import ua.com.uklon.test.iavorskyitestapp.data.remote.http.json.User
 
 interface Repository {
 
-    fun getPosts(): Observable<List<Post>>
-
-    fun savePosts(posts: List<Post>)
-
-    fun saveUsers(users: List<User>)
+    fun syncOnStartUp()
 
     fun getPostsLocal(): Observable<List<Post>>
-
-    fun getUsers(): Observable<List<User>>
 
     fun getComments(postId: Int): Observable<List<Comment>>
 

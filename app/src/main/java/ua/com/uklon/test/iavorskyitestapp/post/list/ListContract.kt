@@ -16,4 +16,10 @@ interface ListContract {
 
     }
 
+    interface ListActivityCallback {
+
+        fun startActivity(post: Post)
+
+    }
+
 }

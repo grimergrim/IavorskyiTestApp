@@ -1,7 +1,5 @@
 package ua.com.uklon.test.iavorskyitestapp.post.list
 
-import android.app.ActivityOptions
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +8,8 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.item_list_content.view.*
 import ua.com.uklon.test.iavorskyitestapp.R
 import ua.com.uklon.test.iavorskyitestapp.data.remote.http.json.Post
-import ua.com.uklon.test.iavorskyitestapp.post.detail.DetailActivity
 
-class ListAdapter(private val listActivity: ListActivity, private val values: List<Post>) :
+class ListAdapter(private val listActivity: ListContract.ListActivityCallback, private val values: List<Post>) :
         RecyclerView.Adapter<ListAdapter.ViewHolder>() {
 
     private val onClickListener: View.OnClickListener
@@ -21,12 +18,7 @@ class ListAdapter(private val listActivity: ListActivity, private val values: Li
         onClickListener = View.OnClickListener { v ->
             val id = v.tag as Int
             val post: Post = values.single { user -> user.id == id }
-            val intent = Intent(v.context, DetailActivity::class.java).apply {
-                putExtra(DetailActivity.ARG_USER_ID, post.userId)
-                putExtra(DetailActivity.ARG_POST_ID, post.id)
-            }
-            v.context.startActivity(intent,
-                    ActivityOptions.makeSceneTransitionAnimation(listActivity).toBundle())
+            listActivity.startActivity(post)
         }
     }
 

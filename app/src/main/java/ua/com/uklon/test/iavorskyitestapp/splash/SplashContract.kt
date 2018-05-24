@@ -14,4 +14,10 @@ interface SplashContract {
 
     }
 
+    interface SplashPresenterCallback {
+
+        fun startListActivity()
+
+    }
+
 }

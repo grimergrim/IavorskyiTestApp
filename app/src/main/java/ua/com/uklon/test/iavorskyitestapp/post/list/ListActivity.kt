@@ -1,5 +1,7 @@
 package ua.com.uklon.test.iavorskyitestapp.post.list
 
+import android.app.ActivityOptions
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
@@ -9,8 +11,9 @@ import kotlinx.android.synthetic.main.activity_list.*
 import kotlinx.android.synthetic.main.item_list.*
 import ua.com.uklon.test.iavorskyitestapp.R
 import ua.com.uklon.test.iavorskyitestapp.data.remote.http.json.Post
+import ua.com.uklon.test.iavorskyitestapp.post.detail.DetailActivity
 
-class ListActivity : AppCompatActivity(), ListContract.ListView {
+class ListActivity : AppCompatActivity(), ListContract.ListView, ListContract.ListActivityCallback {
 
     private lateinit var mListPresenter: ListContract.ListPresenter
 
@@ -26,6 +29,15 @@ class ListActivity : AppCompatActivity(), ListContract.ListView {
     override fun showPosts(posts: List<Post>) {
         if (swipe_refresh_list.isRefreshing) swipe_refresh_list.isRefreshing = false
         setupRecyclerView(item_list, posts)
+    }
+
+    override fun startActivity(post: Post) {
+        val intent = Intent(applicationContext, DetailActivity::class.java).apply {
+            putExtra(DetailActivity.ARG_USER_ID, post.userId)
+            putExtra(DetailActivity.ARG_POST_ID, post.id)
+        }
+
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView, posts: List<Post>) {
