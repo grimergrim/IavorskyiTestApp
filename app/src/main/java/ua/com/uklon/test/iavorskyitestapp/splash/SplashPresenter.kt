@@ -8,6 +8,7 @@ class SplashPresenter(private val mSplashView: SplashContract.SplashView) :
     private val mRepository = Injection.getRepositoryInstance()
 
     override fun syncOnStartUp() {
+        mRepository.setPresenter(this)
         mRepository.syncOnStartUp()
     }
 

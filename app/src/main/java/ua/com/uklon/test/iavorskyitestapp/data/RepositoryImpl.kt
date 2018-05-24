@@ -12,9 +12,14 @@ import ua.com.uklon.test.iavorskyitestapp.data.remote.http.json.User
 import ua.com.uklon.test.iavorskyitestapp.splash.SplashContract
 import ua.com.uklon.test.iavorskyitestapp.splash.SplashPresenter
 
-class RepositoryImpl(private val mSplashPresenter: SplashContract.SplashPresenterCallback,
-                     private val mLocalDataSource: LocalDataSource,
+class RepositoryImpl(private val mLocalDataSource: LocalDataSource,
                      private val mRemoteDataSource: RemoteDataSource) : Repository {
+
+    private lateinit var mSplashPresenter: SplashContract.SplashPresenterCallback
+
+    override fun setPresenter(presenter: SplashPresenter) {
+        mSplashPresenter = presenter
+    }
 
     override fun getComments(postId: Int): Observable<List<Comment>> {
         return mRemoteDataSource.getComments(postId)
